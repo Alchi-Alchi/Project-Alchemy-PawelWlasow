@@ -1,10 +1,11 @@
-var container = document.getElementById('container');
-var elements = container.querySelectorAll('img');
+var container = document.getElementById ('container');
+var bank = document.getElementById ('bankOfElements');
+var elements = bank.querySelectorAll ('img');
 var displacementImgX = 0;
 var displacementImgY = 0;
 var elemWithEvent;
-window.addEventListener('load', setPosition);
-function getElementPosition(elem) {
+window.addEventListener ('load', setPosition);
+function getElementPosition (elem) {
   var borderBox = elem.getBoundingClientRect();
   return {
     left: borderBox.left + window.pageXOffset,
@@ -13,12 +14,12 @@ function getElementPosition(elem) {
 }
 function setPosition() {
   for (var elem of elements) {
-    var position = getElementPosition(elem);
+    var position = getElementPosition (elem);
     elem.style.left = position.left + 'px';
     elem.style.top = position.top + 'px';
-    elem.addEventListener('mousedown', mousedown);
-    elem.addEventListener('mouseup', mouseup);
-    elem.addEventListener('mouseover', mouseover);
+    elem.addEventListener ('mousedown', mousedown);
+    elem.addEventListener ('mouseup', mouseup);
+    elem.addEventListener ('mouseover', mouseover);
   }
   for (var elem of elements) {
      elem.style.position = 'absolute';
@@ -28,18 +29,18 @@ function mouseover (EO) {
   EO = EO || window.event;
   EO.preventDefault();
   elemWithEvent = EO.target;
-  elemWithEvent.style.cursor = 'move';
+  elemWithEvent.style.cursor = 'pointer';
 }
 function mousedown (EO) {
   EO = EO || window.event;
   EO.preventDefault();
   elemWithEvent = EO.target;
-  var position = getElementPosition(elemWithEvent);
+  var position = getElementPosition (elemWithEvent);
   displacementImgX = EO.pageX - position.left;
   displacementImgY = EO.pageY - position.top;
-  container.appendChild(elemWithEvent);
+  bank.appendChild (elemWithEvent);
   elemWithEvent.style.cursor = 'pointer';
-  window.addEventListener('mousemove', mousemove);
+  window.addEventListener ('mousemove', mousemove);
 }
 function mousemove (EO) {
   EO = EO || window.event;
@@ -50,6 +51,6 @@ function mousemove (EO) {
 function mouseup (EO) {
   EO = EO || window.event;
   EO.preventDefault();
-  window.removeEventListener('mousemove', mousemove);
+  window.removeEventListener ('mousemove', mousemove);
   elemWithEvent.style.cursor = 'default';
 }

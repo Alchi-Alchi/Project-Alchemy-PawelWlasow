@@ -1,15 +1,15 @@
-var container = document.getElementById ('container');
+const container = document.getElementById ('container');
 var bank = document.getElementById ('bankOfElements');
 var elements = bank.querySelectorAll ('img');
 var displacementImgX = 0;
 var displacementImgY = 0;
 var elemWithEvent;
-window.addEventListener ('load', setPosition);
+container.addEventListener ('load', setPosition);
 function getElementPosition (elem) {
   var borderBox = elem.getBoundingClientRect();
   return {
-    left: borderBox.left + window.pageXOffset,
-    top: borderBox.top + window.pageYOffset
+    left: borderBox.left + container.pageXOffset,
+    top: borderBox.top + container.pageYOffset
   };
 }
 function setPosition() {
@@ -26,13 +26,13 @@ function setPosition() {
   }
 }
 function mouseover (EO) {
-  EO = EO || window.event;
+  EO = EO || container.event;
   EO.preventDefault();
   elemWithEvent = EO.target;
   elemWithEvent.style.cursor = 'pointer';
 }
 function mousedown (EO) {
-  EO = EO || window.event;
+  EO = EO || container.event;
   EO.preventDefault();
   elemWithEvent = EO.target;
   var position = getElementPosition (elemWithEvent);
@@ -40,17 +40,17 @@ function mousedown (EO) {
   displacementImgY = EO.pageY - position.top;
   bank.appendChild (elemWithEvent);
   elemWithEvent.style.cursor = 'pointer';
-  window.addEventListener ('mousemove', mousemove);
+  container.addEventListener ('mousemove', mousemove);
 }
 function mousemove (EO) {
-  EO = EO || window.event;
+  EO = EO || container.event;
   EO.preventDefault();
   elemWithEvent.style.left = (EO.pageX - displacementImgX) + 'px';
   elemWithEvent.style.top = (EO.pageY - displacementImgY) + 'px';
 }
 function mouseup (EO) {
-  EO = EO || window.event;
+  EO = EO || container.event;
   EO.preventDefault();
-  window.removeEventListener ('mousemove', mousemove);
+  container.removeEventListener ('mousemove', mousemove);
   elemWithEvent.style.cursor = 'default';
 }

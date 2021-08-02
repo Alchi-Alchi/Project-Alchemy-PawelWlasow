@@ -1,7 +1,7 @@
 const logo = document.getElementById ('logo');
 let letters = ['A', 'l', 'c', 'h', 'e', 'm', 'y'];
 const flask = document.createElement ('img');
-flask.src = '../images/flask1.png';
+flask.src = 'images/flask1.png';
 logo.appendChild (flask);
 window.onload = function () {
   var index = 0;

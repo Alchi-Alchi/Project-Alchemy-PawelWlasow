@@ -6,7 +6,7 @@ logo.appendChild (flask);
 window.onload = function () {
   let index = 0;
   let id = 'letterNumber';
-  for (i = 1; i <= 7; i++) {
+  for (i = 1; i <= letters.length; i++) {
     const letter = document.createElement ('span');
     logo.appendChild (letter).id = id + i;
     letter.innerHTML = letters [index];

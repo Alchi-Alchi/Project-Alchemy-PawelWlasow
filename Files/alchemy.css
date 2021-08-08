@@ -1,5 +1,6 @@
 body {
   margin: 0;
+  background: rgba(241, 241, 241, 1);
 }
 
 #logo {
@@ -32,7 +33,7 @@ img {
 
 #basket {
   width: 20%;
-  background: rgba(196, 32, 35, 0.3);
+  border-right: 3px solid rgba(29, 30, 34, 1);
 }
 
 #workField {
@@ -45,9 +46,30 @@ img {
   align-items: flex-start;
   width: 30%;
   background: rgba(69, 170, 242, 0.3);
+  height: 100vh;
+  border-left: 3px solid rgba(29, 30, 34, 1);
 }
 
 #menu {
-  margin: 1%;
+  margin: 0 auto;
   text-align: center;
+  padding: 1%;
+  background: rgba(29, 30, 34, 1);
+}
+
+#menu > input {
+  padding: 15px 30px;
+  font-size: 24px;
+  background-color: rgba(60, 177, 229, 1);
+  color: white;
+  cursor: pointer;
+  outline: rgba(29, 30, 34, 1);
+}
+
+.draggable {
+  cursor: pointer;
+}
+
+.basketDrop {
+  background: rgba(196, 32, 35, 0.5);
 }

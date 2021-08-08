@@ -6,14 +6,22 @@
   <title>Alchemy</title>
   <link rel="stylesheet" href="alchemy.css">
   <link rel="shortcut icon" href="images/stone.png">
-  <script defer src="alchemy.js"></script>
+  <script src="dragElements.js"></script>
+  <script src="behaviorElements.js"></script>
+  <script src="count.js"></script>
   <script defer src="logo.js"></script>
 </head>
 <body>
   <div id="logo"></div>
   <div id="container">
     <div id="basket" class="droppable"></div>
-    <div id="workField"></div>
+    <div id="workField" class="fieldForTransform">
+      <div id="counter">
+        <span id="openedElements"></span>
+        <p>/</p>
+        <span id="allElements"></span>
+      </div>
+    </div>
     <div id="bankOfElements">
       <img src="icons/air.png" alt="air" title="Воздух" class="draggable">
       <img src="icons/flame.png" alt="flame" title="Огонь" class="draggable">
@@ -24,7 +32,7 @@
   <div id="menu">
     <input type="button" value="Игра">
     <input type="button" value="Таблица рекордов">
-    <input type="button" value="Выход">
+    <input type="button" value="Закончить игру">
   </div>
 </body> 
 </html>

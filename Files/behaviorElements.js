@@ -8,7 +8,7 @@ DragManager.onDragEnd = function(dragObject, dropElem) {
     setTimeout(function() {
       dropElem.classList.remove('basketDrop');
     }, 200);
-  } else if (dropElem.closest('#workField') || dropElem.closest('.draggable')) {
+  } else if (dropElem.closest('#workField')) {
     let workField = document.getElementById ('workField').appendChild (dragObject.elem);
   } else if (dropElem.closest('#bankOfElements')) {
     dragObject.elem.style.display = 'none';

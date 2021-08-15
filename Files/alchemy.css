@@ -15,7 +15,7 @@ body::-webkit-scrollbar-thumb {
 
 body {
   margin: 0;
-  background: rgba(241, 241, 241, 1);
+  background: rgba(222, 222, 222, 1);
 }
 
 #logo {
@@ -38,6 +38,10 @@ body {
   color: rgba(229, 20, 26, 1);
 }
 
+.wrapperPages {
+  height: 100vh;
+}
+
 #container {
   display: flex;
 }
@@ -47,8 +51,15 @@ img {
 }
 
 #basket {
+  
   width: 20%;
   border-right: 3px solid rgba(29, 30, 34, 1);
+}
+
+.basketDrop {
+  background: url(images/basket.png) no-repeat;
+  background-position: center;
+  /* background: rgba(196, 32, 35, 0.5); */
 }
 
 #workField {
@@ -79,13 +90,45 @@ img {
   background-color: rgba(60, 177, 229, 1);
   color: white;
   cursor: pointer;
-  outline: rgba(29, 30, 34, 1);
+  border: 1px solid white;
 }
 
-.draggable {
+.draggable, .base {
   cursor: pointer;
 }
 
-.basketDrop {
-  background: rgba(196, 32, 35, 0.5);
+#counter {
+  position: absolute;
+  top: 100%;
+  display: flex;
+  font-size: 72px;
+}
+
+#allElements {
+  color: rgba(60, 177, 229, 1);
+}
+
+#openedElements {
+  color: rgba(229, 20, 26, 1);
+}
+
+.base:hover {
+  border-radius: 50%;
+  transition: all 0.3s ease-in-out;
+  transform: scale(1.1);
+}
+
+#header {
+  text-align: center;
+  font-size: 48px;
+}
+
+#rules {
+  font-size: 32px;
+  padding: 0 100px;
+}
+
+.base {
+  width: 128px;
+  height: 128px;
 }

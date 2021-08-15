@@ -3,23 +3,27 @@ let field = document.getElementById ('workField');
 let DragManager = new function() {
   let dragObject = {};
   let self = this;
+  function onClick(ev) {
+    if (ev.which != 1) return;
+    let elem = ev.target.closest('.base');
+    if (!elem) return;
+    if (elem.parentNode.id = 'bankOfElements') {}
+    let copy = document.createElement ('img');
+    copy.classList.add ('draggable');
+    copy.setAttribute ('id', elem.id + 'ID');
+    copy.setAttribute ('title', elem.title);
+    copy.setAttribute ('alt', elem.id);
+    copy.setAttribute ('src', 'icons/' + elem.id + '.png');
+    field.appendChild (copy);
+    dragObject.downX = ev.pageX;
+    dragObject.downY = ev.pageY;
+    return false;
+  }
   function onMouseDown(e) {
     if (e.which != 1) return;
     let elem = e.target.closest('.draggable');
     if (!elem) return;
-    let copy = document.createElement ('img');
-    
-      
-    copy.classList.add ('draggable');
-    copy.setAttribute ('id', elem.id);
-    copy.setAttribute ('title', elem.title);
-    copy.setAttribute ('alt', elem.id);
-    copy.setAttribute ('src', 'icons/' + elem.id + '.png');
-    bank.appendChild (copy);
-
-    dragObject.elem = copy;
-    
-    
+    dragObject.elem = elem;
     // запомним, что элемент нажат на текущих координатах pageX/pageY
     dragObject.downX = e.pageX;
     dragObject.downY = e.pageY;
@@ -69,6 +73,7 @@ let DragManager = new function() {
       self.onDragCancel(dragObject);
     } else {
       self.onDragEnd(dragObject, dropElem);
+      self.transformEl (dragObject);
     }
   }
 
@@ -96,32 +101,31 @@ let DragManager = new function() {
 
   function startDrag(e) {
     let avatar = dragObject.avatar;
-    
     // инициировать начало переноса
     document.body.appendChild(avatar);
-    
     avatar.style.zIndex = 10;
     avatar.style.position = 'absolute';
   }
 
   function findDroppable(event) {
-    // спрячем переносимый элемент
     dragObject.avatar.hidden = true;
     // получить самый вложенный элемент под курсором мыши
     let elem = document.elementFromPoint(event.clientX, event.clientY);
-    // показать переносимый элемент обратно
     dragObject.avatar.hidden = false;
     if (elem == null) {
       // такое возможно, если курсор мыши "вылетел" за границу окна
       return null;
+    } else {
+      return elem.closest('.droppable') || elem.closest('.fieldForTransform');
     }
-    return elem.closest('.droppable') || elem.closest('.fieldForTransform');
   }
   document.onmousemove = onMouseMove;
   document.onmouseup = onMouseUp;
   document.onmousedown = onMouseDown;
+  document.onclick = onClick;
   this.onDragEnd = function(dragObject, dropElem) {};
   this.onDragCancel = function(dragObject) {};
+  this.transformEl = function(dragObject) {};
 };
 function getCoords(elem) {
   let box = elem.getBoundingClientRect();

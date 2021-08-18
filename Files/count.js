@@ -13,7 +13,8 @@ let gameElements = [
   {"rus": "Птица", "eng": "bird"},
   {"rus": "Камень", "eng": "stone"},
   {"rus": "Гора", "eng": "mount"},
-  {"rus": "Рыба", "eng": "fish"}
+  {"rus": "Рыба", "eng": "fish"},
+  {"rus": "Пар", "eng": "steam"}
 ];
 all.innerHTML = gameElements.length;
 openedElements.innerHTML = bank.children.length;

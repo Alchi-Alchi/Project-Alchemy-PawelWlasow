@@ -7,6 +7,8 @@
   <link rel="stylesheet" href="alchemy.css">
   <link rel="shortcut icon" href="images/stone.png">
   <script defer src="logo.js"></script>
+  <script defer src="table.js"></script>
+  <script defer src="timer.js"></script>
 </head>
 <body>
   <div id="logo"></div>
@@ -28,6 +30,11 @@
       </div>
     </div> -->
   </div>
+  <div id="modalWindow" class="modal">
+    <p id="nameQ">Введите ваше имя</p>
+    <input id="nameA" type="text" placeholder="Name" required><br>
+    <button id="modalBtn">OK</button>
+  </div>
   <script>
     window.onhashchange = SwitchToStateFromURLHash;
     let SPAStateH = {}; 
@@ -36,27 +43,39 @@
       let URLHash = window.location.hash;
       let StateJSON = decodeURIComponent(URLHash.substr(1));
       if (StateJSON !== "") {
-        SPAStateH = JSON.parse(StateJSON); 
+        SPAStateH = JSON.parse(StateJSON);
       } else {
         SPAStateH = {pagename: 'Main'};
       }
       let PageHTML = "";
       switch (SPAStateH.pagename) {
-        case 'Главная':
+        case 'Правила':
           PageHTML += "<h1 id='header'>Правила</h1>";
           PageHTML += "<p id='rules'>В этой игре необходимо открывать новые элементы, путём соединения их друг с другом. Для начала есть 4 основных элемента: Огонь, Вода, Земля, Воздух. Комбинируя их между собой, можно получать новые. Для того, чтобы взять элемент, просто кликните по нему в поле с уже открытыми элементами. Для того, чтобы получить новый, перетащите их друг к другу. Ненужные элементы можно убрать, перетащив в \"корзину\". Комбинации элементов, могут состоять из двух или более элементов. </p>";
+          wrapper.style.background = 'none';
+          logo.style.display = 'flex';
           break;
         case 'Таблица':
           PageHTML += "<h3 id='header'>Таблица</h3>";
+          PageHTML += "<table id='table' cellpadding ='10'><tr><td>№</td><td>Игрок</td><td>Время</td><td>Открыто элементов</td></tr></table>";
+          wrapper.style.background = 'none';
+          logo.style.display = 'flex';
+          break;
+          case 'Main':
+          wrapper.style.background = 'url(images/background.png)';
+          wrapper.style.backgroundSize = 'cover';
+          logo.style.display = 'none';
           break;
         case 'Игра':
           PageHTML += "<div id='container'>";
-          PageHTML += "<div id='basket' class='droppable'></div>";
+          PageHTML += "<div id='basket' class='droppable basketUsual'></div>";
           PageHTML += "<div id='workField' class='fieldForTransform'>";
           PageHTML += "<div id='counter'>";
+          PageHTML += "<div id='count'>";
           PageHTML += "<span id='openedElements'></span>";
           PageHTML += "<span>/</span>";
           PageHTML += "<span id='allElements'></span>";
+          PageHTML += "</div>";
           PageHTML += "</div>";
           PageHTML += "</div>";
           PageHTML += "<div id='bankOfElements'>";
@@ -66,15 +85,17 @@
           PageHTML += "<img src='icons/water.png' alt='water' title='Вода' class='base' id='water' name='water'>";
           PageHTML += "</div>";  
           PageHTML += "</div>";
-          break;
+          wrapper.style.background = 'none';
+          logo.style.display = 'flex';
+          break;   
       }
       document.getElementById('wrapper').innerHTML = PageHTML;
     }
     function SwitchToState(NewStateH) {
       location.hash = encodeURIComponent(JSON.stringify(NewStateH));
     }
-    function SwitchToMainPage() {
-      SwitchToState({pagename: 'Главная'});
+    function SwitchToRulesPage() {
+      SwitchToState({pagename: 'Правила'});
     }
     function SwitchToListPage() {
       SwitchToState({pagename: 'Таблица'});
@@ -82,17 +103,20 @@
     function SwitchToGamePage() {
       SwitchToState({pagename: 'Игра'});
     }
+    function SwitchToMainPage() {
+      SwitchToState({pagename: 'Main'});
+    }
     SwitchToStateFromURLHash();
   </script>
   <div id="menu">
-    <input type="button" value="Игра" onclick='SwitchToGamePage()'>
+    <input type="button" id="startGame" value="Игра" onclick='SwitchToGamePage()'>
     <input type="button" value="Таблица рекордов" onclick='SwitchToListPage()'>
-    <input type="button" value="Правила" onclick='SwitchToMainPage()'>
-    <input type="button" value="Закончить игру">
+    <span id="timer">00:00:00</span>
+    <input type="button" value="Правила" onclick='SwitchToRulesPage()'>
+    <input type="button" id="endGame" value="Закончить игру" onclick='SwitchToMainPage()'>
   </div>
 </body> 
 <script src="dragElements.js"></script>
-<script src="behaviorElements.js"></script>
 <script src="count.js"></script>
-<script src="timer.js"></script>
+<script src="behaviorElements.js"></script>
 </html>

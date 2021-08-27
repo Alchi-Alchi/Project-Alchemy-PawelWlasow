@@ -1,5 +1,6 @@
 let bank = document.getElementById ('bankOfElements');
 let field = document.getElementById ('workField');
+let num = 1;
 let DragManager = new function() {
   let dragObject = {};
   let self = this;
@@ -11,6 +12,8 @@ let DragManager = new function() {
     let copy = document.createElement ('img');
     copy.classList.add ('draggable');
     copy.setAttribute ('id', elem.id + 'ID');
+    copy.setAttribute ('data-id', elem.id + num);
+    num++;
     copy.setAttribute ('title', elem.title);
     copy.setAttribute ('alt', elem.id);
     copy.setAttribute ('name', elem.id);

@@ -8,15 +8,15 @@ let gameElements = [
   {"rus": "Земля", "eng": "ground"},
   {"rus": "Пар", "eng": "steam"},
   {"rus": "Лава", "eng": "lava"},
-  {"rus": "Камень", "eng": "stone"},
-  {"rus": "Металл", "eng": "metall"},
-  {"rus": "Болото", "eng": "swamp"},
-  {"rus": "Песок", "eng": "sand"},
+  // {"rus": "Камень", "eng": "stone"},
+  // {"rus": "Металл", "eng": "metall"},
+  // {"rus": "Болото", "eng": "swamp"},
+  // {"rus": "Песок", "eng": "sand"},
   {"rus": "Озеро", "eng": "lake"},
 
-  {"rus": "Птица", "eng": "bird"},
-  {"rus": "Гора", "eng": "mount"},
-  {"rus": "Рыба", "eng": "fish"}
+  // {"rus": "Птица", "eng": "bird"},
+  // {"rus": "Гора", "eng": "mount"},
+  // {"rus": "Рыба", "eng": "fish"}
 ];
 if (all === null) {
   ;
@@ -33,6 +33,7 @@ function refresh () {
     ;
   } else if (all.textContent == openedElements.textContent) {
     modal.style.display = 'block';
+    endGame ();
   }
 };
 refresh ();

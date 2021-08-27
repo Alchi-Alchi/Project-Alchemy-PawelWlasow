@@ -4,6 +4,7 @@ DragManager.onDragCancel = function(dragObject) {
 DragManager.onDragEnd = function(dragObject, dropElem) {
   if (dropElem.closest('#basket')) {
     dragObject.elem.parentNode.removeChild (dragObject.elem);
+    deleteElem ();
     dropElem.classList.remove('basketUsual');
     dropElem.classList.add('basketDrop');
     setTimeout(function() {
@@ -24,6 +25,7 @@ let elementsWater = document.getElementsByName ('water');
 el1Water = elementsWater[0];
 el2Water = elementsWater[1];
 let flameID = document.getElementById ('flameID');
+let elementsFlame = document.getElementsByName ('flame');
 let airID = document.getElementById ('airID');
 let groundID = document.getElementById ('groundID');
 let steam = document.getElementById ('steamID');
@@ -38,28 +40,32 @@ if (dragObject.elem.parentNode == workArea) {
   if (waterID === null || flameID === null) {
     ;
   } else {
-      waterIDX = waterID.getBoundingClientRect().x
-      waterIDY = waterID.getBoundingClientRect().y
-      flameIDX = flameID.getBoundingClientRect().x
-      flameIDY = flameID.getBoundingClientRect().y
-      if (Math.abs(waterIDX - flameIDX) <= 64 && Math.abs (waterIDY - flameIDY) <= 64) {
-        flameID.parentNode.removeChild (flameID);
-        waterID.parentNode.removeChild (waterID);
-        steam = document.createElement ('img');
-        steam.setAttribute ('id', 'steam');
-        steam.classList.add ('base');
-        steam.setAttribute ('title', 'Пар');
-        steam.setAttribute ('alt', 'steam');
-        steam.setAttribute ('src', 'icons/' + 'steam' + '.png');
-        if ((!storage.children.steam)) {
-          storage.appendChild (steam);
-          steam.click ();
-        } else {
-          storage.children.steam.click ();
-        }
-        refresh ();
-      }
+    waterIDX = waterID.getBoundingClientRect().x;
+    waterIDY = waterID.getBoundingClientRect().y;
+    flameIDX = flameID.getBoundingClientRect().x;
+    flameIDY = flameID.getBoundingClientRect().y;
+    if (elementsWater.length > 3) {
+      elementsWater[0].parentNode.removeChild (elementsWater[0]);
     }
+    if (Math.abs(waterIDX - flameIDX) <= 64 && Math.abs (waterIDY - flameIDY) <= 64) {
+      flameID.parentNode.removeChild (flameID);
+      waterID.parentNode.removeChild (waterID);
+      soundElem ();
+      steam = document.createElement ('img');
+      steam.setAttribute ('id', 'steam');
+      steam.classList.add ('base');
+      steam.setAttribute ('title', 'Пар');
+      steam.setAttribute ('alt', 'steam');
+      steam.setAttribute ('src', 'icons/' + 'steam' + '.png');
+      if ((!storage.children.steam)) {
+        storage.appendChild (steam);
+        steam.click ();
+      } else {
+        storage.children.steam.click ();
+      }
+      refresh ();
+    }
+  }
 // Элемент Лава
   if (groundID === null || flameID === null) {
     ;

@@ -1,4 +1,3 @@
-let container = document.getElementById ('container');
 let DragManager = new function() {
   let dragObject = {};
   let self = this;
@@ -100,7 +99,7 @@ let DragManager = new function() {
       // такое возможно, если курсор мыши "вылетел" за границу окна
       return null;
     }
-    return elem.closest('.droppable');
+    return elem.closest('.droppable') || elem.closest('.fieldForTransform');
   }
   document.onmousemove = onMouseMove;
   document.onmouseup = onMouseUp;

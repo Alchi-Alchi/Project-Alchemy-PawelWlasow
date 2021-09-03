@@ -1,3 +1,5 @@
+let bank = document.getElementById ('bankOfElements');
+let field = document.getElementById ('workField');
 let DragManager = new function() {
   let dragObject = {};
   let self = this;
@@ -5,7 +7,19 @@ let DragManager = new function() {
     if (e.which != 1) return;
     let elem = e.target.closest('.draggable');
     if (!elem) return;
-    dragObject.elem = elem;
+    let copy = document.createElement ('img');
+    
+      
+    copy.classList.add ('draggable');
+    copy.setAttribute ('id', elem.id);
+    copy.setAttribute ('title', elem.title);
+    copy.setAttribute ('alt', elem.id);
+    copy.setAttribute ('src', 'icons/' + elem.id + '.png');
+    bank.appendChild (copy);
+
+    dragObject.elem = copy;
+    
+    
     // запомним, что элемент нажат на текущих координатах pageX/pageY
     dragObject.downX = e.pageX;
     dragObject.downY = e.pageY;
@@ -75,16 +89,18 @@ let DragManager = new function() {
       avatar.style.position = old.position;
       avatar.style.left = old.left;
       avatar.style.top = old.top;
-      avatar.style.zIndex = old.zIndex
+      avatar.style.zIndex = old.zIndex;
     };
     return avatar;
   }
 
   function startDrag(e) {
     let avatar = dragObject.avatar;
+    
     // инициировать начало переноса
     document.body.appendChild(avatar);
-    avatar.style.zIndex = 9999;
+    
+    avatar.style.zIndex = 10;
     avatar.style.position = 'absolute';
   }
 

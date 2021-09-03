@@ -1,3 +1,18 @@
+html {
+  scroll-behavior: smooth;
+}
+
+body::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  background-color: rgba(29, 30, 34, 1);
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: rgba(60, 177, 229, 1);;
+  border-radius: 10px;
+}
+
 body {
   margin: 0;
   background: rgba(241, 241, 241, 1);
@@ -48,6 +63,7 @@ img {
   background: rgba(69, 170, 242, 0.3);
   height: 100vh;
   border-left: 3px solid rgba(29, 30, 34, 1);
+  overflow: scroll;
 }
 
 #menu {

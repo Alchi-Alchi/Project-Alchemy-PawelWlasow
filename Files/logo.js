@@ -13,3 +13,4 @@ window.onload = function () {
     index++;
   }
 }
+let basket = document.getElementById ('basket');

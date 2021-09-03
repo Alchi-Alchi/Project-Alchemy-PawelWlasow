@@ -6,15 +6,41 @@ let gameElements = [
   {"rus": "Вода", "eng": "water"},
   {"rus": "Воздух", "eng": "air"},
   {"rus": "Земля", "eng": "ground"},
-  {"rus": "Жизнь", "eng": "life"},
-  {"rus": "Дерево", "eng": "tree"},
-  {"rus": "Человек", "eng": "humans"},
-  {"rus": "Небо", "eng": "sky"},
-  {"rus": "Птица", "eng": "bird"},
+  {"rus": "Пар", "eng": "steam"},
+  {"rus": "Лава", "eng": "lava"},
   {"rus": "Камень", "eng": "stone"},
+  {"rus": "Металл", "eng": "metall"},
+  {"rus": "Болото", "eng": "swamp"},
+  {"rus": "Песок", "eng": "sand"},
+  {"rus": "Озеро", "eng": "lake"},
+
+  {"rus": "Птица", "eng": "bird"},
   {"rus": "Гора", "eng": "mount"},
-  {"rus": "Рыба", "eng": "fish"},
-  {"rus": "Пар", "eng": "steam"}
+  {"rus": "Рыба", "eng": "fish"}
 ];
-all.innerHTML = gameElements.length;
-openedElements.innerHTML = bank.children.length;
+if (all === null) {
+  ;
+} else {
+  all.innerHTML = gameElements.length;
+};
+function refresh () {
+  if (bank === null) {
+    ;
+  } else {
+    openedElements.innerHTML = bank.children.length;
+  }
+  if (all === null || openedElements === null) {
+    ;
+  } else if (all.textContent == openedElements.textContent) {
+    modal.style.display = 'block';
+  }
+};
+refresh ();
+let inscription = document.createElement ('p');
+inscription.setAttribute ('id', 'inscription');
+inscription.innerHTML = 'Открыто элементов:';
+if (counter === null) {
+  ;
+} else {
+  counter.prepend (inscription);
+};

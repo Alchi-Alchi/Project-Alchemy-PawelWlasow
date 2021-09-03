@@ -4,9 +4,11 @@ DragManager.onDragCancel = function(dragObject) {
 DragManager.onDragEnd = function(dragObject, dropElem) {
   if (dropElem.closest('#basket')) {
     dragObject.elem.parentNode.removeChild (dragObject.elem);
+    dropElem.classList.remove('basketUsual');
     dropElem.classList.add('basketDrop');
     setTimeout(function() {
       dropElem.classList.remove('basketDrop');
+      dropElem.classList.add('basketUsual');
     }, 200);
   } else if (dropElem.closest('#workField')) {
     let workField = document.getElementById ('workField').appendChild (dragObject.elem);
@@ -26,6 +28,11 @@ let airID = document.getElementById ('airID');
 let groundID = document.getElementById ('groundID');
 let steam = document.getElementById ('steamID');
 let lava = document.getElementById ('lavaID');
+let stone = document.getElementById ('stoneID');
+let metall = document.getElementById ('metallID');
+let sand = document.getElementById ('sandID');
+let lake = document.getElementById ('lakeID');
+let swamp = document.getElementById ('swampID');
 // Элемент Пар
 if (dragObject.elem.parentNode == workArea) {
   if (waterID === null || flameID === null) {
@@ -50,6 +57,7 @@ if (dragObject.elem.parentNode == workArea) {
         } else {
           storage.children.steam.click ();
         }
+        refresh ();
       }
     }
 // Элемент Лава
@@ -75,6 +83,7 @@ if (dragObject.elem.parentNode == workArea) {
         } else {
           storage.children.lava.click ();
         }
+        refresh ();
       }
     }
 // Элемент Озеро
@@ -100,9 +109,10 @@ if (dragObject.elem.parentNode == workArea) {
         } else {
           storage.children.lake.click ();
         }
+        refresh ();
       }
     }
-// Элемент Лава
+// Элемент Болото
   if (groundID === null || waterID === null) {
     ;
   } else {
@@ -125,6 +135,69 @@ if (dragObject.elem.parentNode == workArea) {
       } else {
           storage.children.swamp.click ();
         }
+        refresh ();
+      }
+    }
+// Камень, Металл
+  if (airID === null || lava === null) {
+    ;
+  } else {
+    airIDX = airID.getBoundingClientRect().x
+    airIDY = airID.getBoundingClientRect().y
+    lavaIDX = lavaID.getBoundingClientRect().x
+    lavaIDY = lavaID.getBoundingClientRect().y
+    if (Math.abs(lavaIDX - airIDX) <= 64 && Math.abs (lavaIDY - airIDY) <= 64) {
+      airID.parentNode.removeChild (airID);
+      lavaID.parentNode.removeChild (lavaID);
+      metall = document.createElement ('img');
+      metall = document.createElement ('img');
+      metall.setAttribute ('id', 'metall');
+      metall.classList.add ('base');
+      metall.setAttribute ('title', 'Металл');
+      metall.setAttribute ('alt', 'metall');
+      metall.setAttribute ('src', 'icons/' + 'metall' + '.png');
+      stone = document.createElement ('img');
+      stone.setAttribute ('id', 'stone');
+      stone.classList.add ('base');
+      stone.setAttribute ('title', 'Камень');
+      stone.setAttribute ('alt', 'stone');
+      stone.setAttribute ('src', 'icons/' + 'stone' + '.png');
+      if ((!storage.children.stone) && (!storage.children.metall)) {
+        storage.appendChild (stone);
+        storage.appendChild (metall);
+        stone.click ();
+        metall.click ();
+      } else {
+          storage.children.stone.click ();
+          storage.children.metall.click ();
+        }
+        refresh ();
+      }
+    }
+// Элемент Песок
+  if (groundID === null || airID === null) {
+    ;
+  } else {
+    airIDX = airID.getBoundingClientRect().x
+    airIDY = airID.getBoundingClientRect().y
+    groundIDX = groundID.getBoundingClientRect().x
+    groundIDY = groundID.getBoundingClientRect().y
+    if (Math.abs(groundIDX - airIDX) <= 64 && Math.abs (groundIDY - airIDY) <= 64) {
+      airID.parentNode.removeChild (airID);
+      groundID.parentNode.removeChild (groundID);
+      sand = document.createElement ('img');
+      sand.setAttribute ('id', 'sand');
+      sand.classList.add ('base');
+      sand.setAttribute ('title', 'Песок');
+      sand.setAttribute ('alt', 'sand');
+      sand.setAttribute ('src', 'icons/' + 'sand' + '.png');
+      if ((!storage.children.sand)) {
+        storage.appendChild (sand);
+        sand.click ();
+      } else {
+          storage.children.sand.click ();
+        }
+        refresh ();
       }
     }
   }

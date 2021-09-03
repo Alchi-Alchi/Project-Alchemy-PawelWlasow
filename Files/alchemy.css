@@ -1,0 +1,48 @@
+body {
+  margin: 0;
+}
+
+#logo {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background: rgba(29, 30, 34, 1);
+}
+
+#letterNumber1, #letterNumber2, #letterNumber3, #letterNumber4, #letterNumber5, #letterNumber6, #letterNumber7 {
+  font-size: 80px;
+  font-family: 'Architects Daughter', cursive;
+}
+
+#letterNumber1, #letterNumber3, #letterNumber5, #letterNumber7 {
+  color: rgba(60, 177, 229, 1);
+}
+
+#letterNumber2, #letterNumber4, #letterNumber6 {
+  color: rgba(229, 20, 26, 1);
+}
+
+#container {
+  display: flex;
+}
+
+img {
+  margin: 5px;
+}
+
+#basket {
+  width: 20%;
+  background: rgba(196, 32, 35, 0.3);
+}
+
+#workField {
+  width: 50%;
+}
+
+#bankOfElements {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 30%;
+  background: rgba(69, 170, 242, 0.3);
+}

@@ -46,3 +46,8 @@ img {
   width: 30%;
   background: rgba(69, 170, 242, 0.3);
 }
+
+#menu {
+  margin: 1%;
+  text-align: center;
+}

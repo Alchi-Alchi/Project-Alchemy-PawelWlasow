@@ -4,9 +4,9 @@ const flask = document.createElement ('img');
 flask.src = 'images/flask1.png';
 logo.appendChild (flask);
 window.onload = function () {
-  var index = 0;
-  var id = 'letterNumber';
-  for (i = 1; i <= 7; i++) {
+  let index = 0;
+  let id = 'letterNumber';
+  for (i = 1; i <= letters.length; i++) {
     const letter = document.createElement ('span');
     logo.appendChild (letter).id = id + i;
     letter.innerHTML = letters [index];

@@ -2,9 +2,12 @@ let timeWindow = document.getElementById ('timer');
 let startButton = document.getElementById ('startBtn');
 let gamePage = document.getElementById ('gamePage');
 let endButton = document.getElementById ('endGame');
+let rulesBtn = document.getElementById ('rulesBtn');
+let scoreBtn = document.getElementById ('scoreBtn');
 let timer;
 let modal = document.getElementById ('modalWindow');
 let okBtn = document.getElementById ('modalBtn');
+let cancelBtn = document.getElementById ('modalBtnCancel');
 let nameA = document.getElementById ('nameA');
 let player = {};
 function makeKey() {
@@ -21,10 +24,17 @@ okBtn.addEventListener ('click', function () {
     clearInterval (timer);
     player.name = nameA.value;
     player.time = timeWindow.textContent;
-    player.elements = all.textContent + '/' + openedElements.textContent;
+    player.elements = openedElements.textContent + ' из ' + all.textContent;
     let sPlayer = JSON.stringify (player);
     localStorage.setItem ('key' + makeKey(), sPlayer);
+    rulesBtn.classList.remove ('btn');
+    endButton.classList.remove ('btn');
+    scoreBtn.classList.remove ('btn');
   }
+});
+cancelBtn.addEventListener ('click', function () {
+  modal.style.display = 'none';
+  clearInterval (timer);
 });
 if (startButton === null) {
   ;
@@ -34,11 +44,20 @@ if (startButton === null) {
     timeWindow.update = ms => timeWindow.innerHTML = new Date (ms).toISOString().split(/T|\./)[1];
     timer = setInterval (() => timeWindow.update(new Date - timeWindow.started), 500);
     startButton.style.display = 'none';
+    rulesBtn.classList.add ('btn');
+    endButton.classList.add ('btn');
+    scoreBtn.classList.add ('btn');
   });
 };
-
 endButton.addEventListener ('click', function () {
-  clearInterval (timer);
+  if (timer === undefined) {;};
+  if (timer.textContent !== '00:00:00') {
+    modal.style.display = 'block';
+    clearInterval (timer);
+    rulesBtn.classList.remove ('btn');
+    endButton.classList.remove ('btn');
+    scoreBtn.classList.remove ('btn');
+  }
 });
 gamePage.addEventListener ('click', function () {
   if (timer === undefined) {

@@ -33,7 +33,8 @@ body {
   display: flex;
   justify-content: center;
   width: 100%;
-  background: rgba(29, 30, 34, 1);
+  background: radial-gradient(rgba(29, 30, 34, 1), rgba(17, 17, 17, 1));
+  box-shadow: 0 6px 10px rgba(24, 24, 24, 1);
 }
 
 #letterNumber1, #letterNumber2, #letterNumber3, #letterNumber4, #letterNumber5, #letterNumber6, #letterNumber7 {
@@ -43,10 +44,12 @@ body {
 
 #letterNumber1, #letterNumber3, #letterNumber5, #letterNumber7 {
   color: rgba(39, 92, 255, 1);
+  text-shadow: 0 0 10px #ffffff, 0 0 20px #275CFF, 0 0 30px #275CFF, 0 0 40px #275CFF, 0 0 50px #275CFF, 0 0 60px #275CFF, 0 0 70px #275CFF;
 }
 
 #letterNumber2, #letterNumber4, #letterNumber6 {
   color: rgba(229, 20, 26, 1);
+  text-shadow: 0 0 10px #ffffff, 0 0 20px #E5141A, 0 0 30px #E5141A, 0 0 40px #E5141A, 0 0 50px #E5141A, 0 0 60px #E5141A, 0 0 70px #E5141A;
 }
 
 .wrapperPages {
@@ -98,7 +101,8 @@ img {
   margin: 0 auto;
   text-align: center;
   padding: 1%;
-  background: rgba(29, 30, 34, 1);
+  background: radial-gradient(rgba(29, 30, 34, 1), rgba(17, 17, 17, 1));
+  box-shadow: 0 -6px 10px rgba(24, 24, 24, 1);
 }
 
 #timer {
@@ -122,9 +126,9 @@ img {
   font-size: 72px;
 }
 
-#inscription {
+#inscription, #slash {
   margin: 0;
-  font-size: 64px;
+  font-size: 72px;
   color: rgba(24, 24, 24, 1);
 }
 
@@ -141,11 +145,40 @@ img {
   transform: scale(1.1);
 }
 
+.transformation {
+  animation: ease-in-out 1s transformation;
+}
+
+@keyframes transformation {
+  0%   {opacity: 1; transform: scale(1);}
+  100% {opacity: 0; transform: scale(3);}
+}
+
 #header {
   text-align: center;
   font-size: 48px;
   color: darkorange;
-} 
+}
+
+#header:hover {
+  color: white;
+  animation: ease-in-out 1s blick infinite;
+}
+
+@keyframes blick {
+  from {
+    text-shadow: 0 0 10px darkorange,
+                0 0 20px  darkorange,
+                0 0 30px  darkorange
+
+  }
+  to {
+    text-shadow: 0 0 5px darkorange,
+               0 0 10px darkorange,
+               0 0 15px darkorange
+
+  }
+}
 
 #rules {
   margin: auto;
@@ -154,6 +187,7 @@ img {
   font-size: 32px;
   padding: 0 100px;
   color: white;
+  text-shadow: 0 3px 3px rgba(255, 255, 255, 0.5);
 }
 
 .base {
@@ -168,10 +202,25 @@ img {
   font-size: 24px;
   border: 1px solid darkorange;
   color: white;
+  box-shadow: 3px 3px 10px 1px rgba(0, 0, 0, 1);
 }
 
 #table > tbody > tr:hover {
   background: rgba(24, 24, 24, 1);
+}
+
+thead {
+  background: rgba(0, 0, 0, 1);
+}
+
+thead > tr > th {
+  cursor: pointer;
+}
+
+#note, #message {
+  color: rgba(255, 255, 255, 1);
+  font-size: 24px;
+  text-align: center;
 }
 
 .modal {
@@ -182,8 +231,10 @@ img {
   left: 40%;
   z-index: 12;
   text-align: center;
+  border: 1px solid white;
   border-radius: 3%;
-  background: rgba(39, 92, 255, 1);
+  background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
+  box-shadow: 3px 3px 10px 1px rgba(0, 0, 0, 1);
   -webkit-animation-name: animatetop;
   -webkit-animation-duration: 1s;
   animation-name: animatetop;
@@ -211,19 +262,12 @@ img {
   outline: none;
 }
 
-#modalBtn {
-  margin: 25px;
-  padding: 10px 50px;
-  cursor: pointer;
-  border: none;
-  color: rgba(39, 92, 255, 1);
-  background: white;
-}
-
 #start {
+  position: relative;
+  top: 70%;
   text-align: center;
   width: 100%;
-  margin: 0 auto;
+  margin: auto;
 }
 
 button {
@@ -253,6 +297,7 @@ button {
   -moz-animation: none;
   -o-animation: none;
   animation: none;
+  cursor: pointer;
 }
 
 button:hover, button:focus{
@@ -376,4 +421,107 @@ button:active{
 
 .menu__item:hover {
   background-color: rgba(0, 117, 255, 1);;
+}
+
+.btn {
+  position: relative;
+}
+
+.btn::before, .btn::after {
+  position: absolute;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.btn:before{
+  content: attr(data-tooltip);
+  width: 200px;
+  height: 180px;
+  line-height: 40px;
+  background: #182848;
+  border: 1px solid white;
+  border-radius: 5px;
+  bottom: 90px;
+  left: calc(50% - 100px);
+}
+
+.btn:after {
+  content: "";
+  width: 0;
+  height: 0;
+  border: 10px solid transparent;
+  border-top-color: white;
+  bottom: 70px;
+  left: calc(50% - 10px);
+}
+
+.btn:hover:before, .btn:hover:after {
+  opacity: 1;
+  visibility: visible;
+  transition: 0.2s ease-in-out 0.4s;
+}
+
+.btn:hover:before {
+  bottom: 70px;
+}
+
+.btn:hover:after {
+  bottom: 50px;
+}
+
+@media (max-width: 1200px) {
+  .modal {
+    width: 100%;
+    left: 0;
+  }
+  #nameA {
+    width: inherit;
+  }
+}
+
+@media (max-width: 730px) {
+  #menu {
+    flex-direction: column;
+  }
+  #rules {
+    width: 100%;
+    padding: 0 10px;
+    font-size: 24px;
+  }
+  #logoIMG {
+    display: none;
+  }
+  #counter {
+    width: inherit;
+  }
+  #count, #slash, #inscription {
+    font-size: 48px;
+  }
+  #basket {
+    width: 25%;
+  }
+  #bankOfElements {
+    width: 25%;
+  }
+  #workField {
+    width: 50%;
+  }
+  #letterNumber1, #letterNumber2, #letterNumber3, #letterNumber4, #letterNumber5, #letterNumber6, #letterNumber7 {
+    font-size: 56px;
+  } 
+}
+
+@media (max-width: 510px) {
+  #basket {
+    width: 30%;
+  }
+  #bankOfElements {
+    width: 30%;
+  }
+  #workField {
+    width: 40%;
+  }
+  #letterNumber1, #letterNumber2, #letterNumber3, #letterNumber4, #letterNumber5, #letterNumber6, #letterNumber7 {
+    font-size: 30px;
+  }  
 }

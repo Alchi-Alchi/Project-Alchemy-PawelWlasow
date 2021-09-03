@@ -1,29 +1,36 @@
-function soundElem() {
-  let audio = new Audio();
-  audio.src = 'audio/newElem.mp3';
-  audio.autoplay = true;
-}
-function deleteElem() {
-  let audio = new Audio();
-  audio.src = 'audio/deleteElem.mp3';
-  audio.autoplay = true;
-}
-function endGame() {
-  let audio = new Audio();
-  audio.src = 'audio/end.mp3';
-  audio.autoplay = true;
-}
-function gameMelody() {
-  let audio = new Audio();
-  audio.src = 'audio/gameMelody.mp3';
-  audio.autoplay = true;
-} 
 let controlSound = document.getElementById ('sound');
-let controlMusic = document.getElementById ('music');
-function check () {
-  if (controlMusic.checked) {
-    gameMelody ();
-  } else {
-    
+function soundElem() {
+  if (controlSound.checked) {
+    let audio = new Audio();
+    audio.src = 'audio/newElem.mp3';
+    audio.autoplay = true;
   }
 }
+function deleteElem() {
+  if (controlSound.checked) {
+    let audio = new Audio();
+    audio.src = 'audio/deleteElem.mp3';
+    audio.autoplay = true;
+  }
+}
+function endGame() {
+  if (controlSound.checked) {
+    let audio = new Audio();
+    audio.src = 'audio/end.mp3';
+    audio.autoplay = true;
+  }
+}
+let controlMusic = document.getElementById ('music');
+let playing = false;
+let soundtrack = new Audio('audio/gameMelody.mp3');
+soundtrack.autoplay = true;
+soundtrack.loop = true;
+controlMusic.addEventListener ('change', gameMelody)
+function gameMelody() {
+  if( playing) {
+    soundtrack.pause();
+  } else {
+    soundtrack.play();
+  }
+  playing = !playing;
+};

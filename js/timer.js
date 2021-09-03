@@ -50,8 +50,9 @@ if (startButton === null) {
   });
 };
 endButton.addEventListener ('click', function () {
-  if (timer === undefined) {;};
-  if (timer.textContent !== '00:00:00') {
+  if (timer === undefined) {
+    ;
+  } else if (timer.textContent !== '00:00:00') {
     modal.style.display = 'block';
     clearInterval (timer);
     rulesBtn.classList.remove ('btn');

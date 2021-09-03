@@ -23,11 +23,11 @@ function endGame() {
 let controlMusic = document.getElementById ('music');
 let playing = false;
 let soundtrack = new Audio('audio/gameMelody.mp3');
-soundtrack.autoplay = true;
+soundtrack.autoplay = false;
 soundtrack.loop = true;
 controlMusic.addEventListener ('change', gameMelody)
 function gameMelody() {
-  if( playing) {
+  if (playing) {
     soundtrack.pause();
   } else {
     soundtrack.play();

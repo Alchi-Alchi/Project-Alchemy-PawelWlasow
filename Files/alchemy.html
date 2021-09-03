@@ -4,36 +4,33 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Alchemy</title>
-  <link rel="stylesheet" href="alchemy.css">
+  <link rel="stylesheet" href="css/alchemy.css">
   <link rel="shortcut icon" href="images/stone.png">
-  <script defer src="logo.js"></script>
-  <script defer src="table.js"></script>
-  <script defer src="timer.js"></script>
+  <script defer src="js/logo.js"></script>
+  <script src="js/table.js"></script>
+  <script defer src="js/timer.js"></script>
+  <script defer src="js/audio.js"></script>
 </head>
 <body>
-  <div id="logo"></div>
+  <div id="logo">
+    <div class="hamburger-menu">
+      <input id="menu__toggle" type="checkbox" />
+      <label class="menu__btn" for="menu__toggle">
+        <span></span>
+      </label>
+      <ul class="menu__box">
+        <li class="menu__item"><input type="checkbox" id="music" name="yes">Фоновая музыка</li>
+        <li class="menu__item"><input type="checkbox" id="sound" name="yes" checked>Звуковые эффекты</li>
+      </ul>
+    </div>
+  </div>
   <div id="wrapper" class="wrapperPages">
-    <!-- <div id="container">
-      <div id="basket" class="droppable"></div>
-      <div id="workField" class="fieldForTransform">
-        <div id="counter">
-          <span id="openedElements"></span>
-          <span>/</span>
-          <span id="allElements"></span>
-        </div>
-      </div>
-      <div id="bankOfElements">
-        <img src="icons/air.png" alt="air" title="Воздух" class="base" id="air">
-        <img src="icons/flame.png" alt="flame" title="Огонь" class="base" id="flame">
-        <img src="icons/ground.png" alt="ground" title="Земля" class="base" id="ground">
-        <img src="icons/water.png" alt="water" title="Вода" class="base" id="water">
-      </div>
-    </div> -->
   </div>
   <div id="modalWindow" class="modal">
     <p id="nameQ">Введите ваше имя</p>
     <input id="nameA" type="text" placeholder="Name" required><br>
     <button id="modalBtn">OK</button>
+    <button id="modalBtnCancel">Отмена</button>
   </div>
   <script>
     window.onhashchange = SwitchToStateFromURLHash;
@@ -49,15 +46,18 @@
       }
       let PageHTML = "";
       switch (SPAStateH.pagename) {
-        case 'Правила':
+        case 'Rules':
           PageHTML += "<h1 id='header'>Правила</h1>";
-          PageHTML += "<p id='rules'>В этой игре необходимо открывать новые элементы, путём соединения их друг с другом. Для начала есть 4 основных элемента: Огонь, Вода, Земля, Воздух. Комбинируя их между собой, можно получать новые. Для того, чтобы взять элемент, просто кликните по нему в поле с уже открытыми элементами. Для того, чтобы получить новый, перетащите их друг к другу. Ненужные элементы можно убрать, перетащив в \"корзину\". Комбинации элементов, могут состоять из двух или более элементов. </p>";
+          PageHTML += "<p id='rules'>В этой игре необходимо открывать новые элементы, путём соединения их друг с другом. Для начала есть 4 основных элемента: Огонь, Вода, Земля, Воздух. Комбинируя их между собой, можно получать новые. На странице с игрой, нажмите кнопку ИГРАТЬ. После этого запустится таймер. Для того, чтобы взять элемент, просто кликните по нему в поле с уже открытыми элементами. Для того, чтобы получить новый, выберите те, что считаете нужными и перетащите их друг к другу. Ненужные элементы можно убрать, перетащив в \"корзину\". Комбинации элементов, могут состоять из двух или более элементов. Игра завершится, когда будут открыты все элементы или по нажатию на кнопку ЗАКОНЧИТЬ ИГРУ. </p>";
           wrapper.style.background = 'none';
           logo.style.display = 'flex';
           break;
-        case 'Таблица':
+        case 'Table':
           PageHTML += "<h3 id='header'>Таблица</h3>";
-          PageHTML += "<table id='table' cellpadding ='10'><tr><td>№</td><td>Игрок</td><td>Время</td><td>Открыто элементов</td></tr></table>";
+          PageHTML += "<p id='note'><sup>*</sup>Для сортировки таблицы кликните по нужному столбцу</p>";
+          PageHTML += "<table id='table' cellpadding ='10'><thead><tr><th data-type='number'>№</th><th data-type='name'>Игрок</th><th data-type='time'>Время</th><th data-type='opened'>Открыто элементов</th></tr></thead><tbody></tbody></table>";
+          PageHTML += "<button id='clearBtn'>Очистить таблицу</button>";
+          PageHTML += "<p id='message'></p>";
           wrapper.style.background = 'none';
           logo.style.display = 'flex';
           break;
@@ -66,17 +66,18 @@
           wrapper.style.backgroundSize = 'cover';
           logo.style.display = 'none';
           break;
-        case 'Игра':
+        case 'Game':
           PageHTML += "<div id='container'>";
           PageHTML += "<div id='basket' class='droppable basketUsual'></div>";
           PageHTML += "<div id='workField' class='fieldForTransform'>";
           PageHTML += "<div id='counter'>";
           PageHTML += "<div id='count'>";
           PageHTML += "<span id='openedElements'></span>";
-          PageHTML += "<span>/</span>";
+          PageHTML += "<span id='slash'>/</span>";
           PageHTML += "<span id='allElements'></span>";
           PageHTML += "</div>";
           PageHTML += "</div>";
+          PageHTML += "<div id='start'><button id='startBtn'>Играть</button></div>";
           PageHTML += "</div>";
           PageHTML += "<div id='bankOfElements'>";
           PageHTML += "<img src='icons/air.png' alt='air' title='Воздух' class='base' id='air' name='air'>";
@@ -90,18 +91,24 @@
           break;   
       }
       document.getElementById('wrapper').innerHTML = PageHTML;
+      if (SPAStateH = {pagename: 'Table'}) {
+        tableAdd ();
+      };
+      if (SPAStateH = {pagename: 'Game'}) {
+      };
     }
     function SwitchToState(NewStateH) {
       location.hash = encodeURIComponent(JSON.stringify(NewStateH));
     }
     function SwitchToRulesPage() {
-      SwitchToState({pagename: 'Правила'});
+      SwitchToState({pagename: 'Rules'});
     }
     function SwitchToListPage() {
-      SwitchToState({pagename: 'Таблица'});
+      SwitchToState({pagename: 'Table'});
     }
     function SwitchToGamePage() {
-      SwitchToState({pagename: 'Игра'});
+      SwitchToState({pagename: 'Game'});
+      location.reload();
     }
     function SwitchToMainPage() {
       SwitchToState({pagename: 'Main'});
@@ -109,14 +116,14 @@
     SwitchToStateFromURLHash();
   </script>
   <div id="menu">
-    <input type="button" id="startGame" value="Игра" onclick='SwitchToGamePage()'>
-    <input type="button" value="Таблица рекордов" onclick='SwitchToListPage()'>
+    <button id="gamePage" onclick='SwitchToGamePage()'>К игре</button>
+    <button id="scoreBtn" data-tooltip="Внимание! Если покинуть страницу, весь прогресс будет потерян" onclick='SwitchToListPage()'>Таблица рекордов</button>
     <span id="timer">00:00:00</span>
-    <input type="button" value="Правила" onclick='SwitchToRulesPage()'>
-    <input type="button" id="endGame" value="Закончить игру" onclick='SwitchToMainPage()'>
+    <button id="rulesBtn" data-tooltip="Внимание! Если покинуть страницу, весь прогресс будет потерян" onclick='SwitchToRulesPage()'>Правила</button>
+    <button id="endGame" data-tooltip="Внимание! Если покинуть страницу, весь прогресс будет потерян" onclick='SwitchToMainPage()'>Закончить игру</button>
   </div>
 </body> 
-<script src="dragElements.js"></script>
-<script src="count.js"></script>
-<script src="behaviorElements.js"></script>
+<script src="js/dragElements.js"></script>
+<script src="js/count.js"></script>
+<script src="js/behaviorElements.js"></script>
 </html>

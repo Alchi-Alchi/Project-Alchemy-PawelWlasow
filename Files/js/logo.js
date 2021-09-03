@@ -1,6 +1,7 @@
 const logo = document.getElementById ('logo');
 let letters = ['A', 'l', 'c', 'h', 'e', 'm', 'y'];
 const flask = document.createElement ('img');
+flask.setAttribute ('id', 'logoIMG');
 flask.src = 'images/flask1.png';
 logo.appendChild (flask);
 window.onload = function () {

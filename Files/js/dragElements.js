@@ -1,25 +1,31 @@
 let bank = document.getElementById ('bankOfElements');
 let field = document.getElementById ('workField');
-let DragManager = new function() {
+let num = 1;
+let start = document.getElementById ('startBtn');
+let DragManager = new function ()  {
   let dragObject = {};
   let self = this;
   function onClick(ev) {
     if (ev.which != 1) return;
     let elem = ev.target.closest('.base');
     if (!elem) return;
-    if (elem.parentNode.id = 'bankOfElements') {}
     let copy = document.createElement ('img');
     copy.classList.add ('draggable');
     copy.setAttribute ('id', elem.id + 'ID');
+    copy.setAttribute ('data-id', elem.id + num);
+    num++;
     copy.setAttribute ('title', elem.title);
     copy.setAttribute ('alt', elem.id);
     copy.setAttribute ('name', elem.id);
     copy.setAttribute ('src', 'icons/' + elem.id + '.png');
-    field.appendChild (copy);
+    if (start.style.display === 'none') {
+      field.appendChild (copy);
+    }
     dragObject.downX = ev.pageX;
     dragObject.downY = ev.pageY;
     return false;
   }
+  
   function onMouseDown(e) {
     if (e.which != 1) return;
     let elem = e.target.closest('.draggable');
@@ -121,4 +127,4 @@ function getCoords(elem) {
     top: box.top + pageYOffset,
     left: box.left + pageXOffset
   };
-}
+};

@@ -13,10 +13,17 @@ let gameElements = [
   {"rus": "Болото", "eng": "swamp"},
   {"rus": "Песок", "eng": "sand"},
   {"rus": "Озеро", "eng": "lake"},
+  {"rus": "Конвекция", "eng": "convection"},
+  {"rus": "Облако", "eng": "cloud"},
+  {"rus": "Дождь", "eng": "rain"},
+  {"rus": "Небо", "eng": "sky"},
+  {"rus": "Солнце", "eng": "sun"},
+  {"rus": "Растение", "eng": "plant"},
+  {"rus": "Жизнь", "eng": "life"},
 
-  {"rus": "Птица", "eng": "bird"},
-  {"rus": "Гора", "eng": "mount"},
-  {"rus": "Рыба", "eng": "fish"}
+  // {"rus": "Птица", "eng": "bird"},
+  // {"rus": "Гора", "eng": "mount"},
+  // {"rus": "Рыба", "eng": "fish"}
 ];
 if (all === null) {
   ;
@@ -33,6 +40,7 @@ function refresh () {
     ;
   } else if (all.textContent == openedElements.textContent) {
     modal.style.display = 'block';
+    endGame ();
   }
 };
 refresh ();

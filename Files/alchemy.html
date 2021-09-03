@@ -10,29 +10,89 @@
 </head>
 <body>
   <div id="logo"></div>
-  <div id="container">
-    <div id="basket" class="droppable"></div>
-    <div id="workField" class="fieldForTransform">
-      <div id="counter">
-        <span id="openedElements"></span>
-        <p>/</p>
-        <span id="allElements"></span>
+  <div id="wrapper" class="wrapperPages">
+    <!-- <div id="container">
+      <div id="basket" class="droppable"></div>
+      <div id="workField" class="fieldForTransform">
+        <div id="counter">
+          <span id="openedElements"></span>
+          <span>/</span>
+          <span id="allElements"></span>
+        </div>
       </div>
-    </div>
-    <div id="bankOfElements">
-      <img src="icons/air.png" alt="air" title="Воздух" class="draggable" id="air">
-      <img src="icons/flame.png" alt="flame" title="Огонь" class="draggable" id="flame">
-      <img src="icons/ground.png" alt="ground" title="Земля" class="draggable" id="ground">
-      <img src="icons/water.png" alt="water" title="Вода" class="draggable" id="water">
-    </div>
+      <div id="bankOfElements">
+        <img src="icons/air.png" alt="air" title="Воздух" class="base" id="air">
+        <img src="icons/flame.png" alt="flame" title="Огонь" class="base" id="flame">
+        <img src="icons/ground.png" alt="ground" title="Земля" class="base" id="ground">
+        <img src="icons/water.png" alt="water" title="Вода" class="base" id="water">
+      </div>
+    </div> -->
   </div>
+  <script>
+    window.onhashchange = SwitchToStateFromURLHash;
+    let SPAStateH = {}; 
+    let wrapper = document.getElementById ('wrapper');
+    function SwitchToStateFromURLHash() {
+      let URLHash = window.location.hash;
+      let StateJSON = decodeURIComponent(URLHash.substr(1));
+      if (StateJSON !== "") {
+        SPAStateH = JSON.parse(StateJSON); 
+      } else {
+        SPAStateH = {pagename: 'Main'};
+      }
+      let PageHTML = "";
+      switch (SPAStateH.pagename) {
+        case 'Главная':
+          PageHTML += "<h1 id='header'>Правила</h1>";
+          PageHTML += "<p id='rules'>В этой игре необходимо открывать новые элементы, путём соединения их друг с другом. Для начала есть 4 основных элемента: Огонь, Вода, Земля, Воздух. Комбинируя их между собой, можно получать новые. Для того, чтобы взять элемент, просто кликните по нему в поле с уже открытыми элементами. Для того, чтобы получить новый, перетащите их друг к другу. Ненужные элементы можно убрать, перетащив в \"корзину\". Комбинации элементов, могут состоять из двух или более элементов. </p>";
+          break;
+        case 'Таблица':
+          PageHTML += "<h3 id='header'>Таблица</h3>";
+          break;
+        case 'Игра':
+          PageHTML += "<div id='container'>";
+          PageHTML += "<div id='basket' class='droppable'></div>";
+          PageHTML += "<div id='workField' class='fieldForTransform'>";
+          PageHTML += "<div id='counter'>";
+          PageHTML += "<span id='openedElements'></span>";
+          PageHTML += "<span>/</span>";
+          PageHTML += "<span id='allElements'></span>";
+          PageHTML += "</div>";
+          PageHTML += "</div>";
+          PageHTML += "<div id='bankOfElements'>";
+          PageHTML += "<img src='icons/air.png' alt='air' title='Воздух' class='base' id='air' name='air'>";
+          PageHTML += "<img src='icons/flame.png' alt='flame' title='Огонь' class='base' id='flame' name='flame'>";
+          PageHTML += "<img src='icons/ground.png' alt='ground' title='Земля' class='base' id='ground' name='ground'>"; 
+          PageHTML += "<img src='icons/water.png' alt='water' title='Вода' class='base' id='water' name='water'>";
+          PageHTML += "</div>";  
+          PageHTML += "</div>";
+          break;
+      }
+      document.getElementById('wrapper').innerHTML = PageHTML;
+    }
+    function SwitchToState(NewStateH) {
+      location.hash = encodeURIComponent(JSON.stringify(NewStateH));
+    }
+    function SwitchToMainPage() {
+      SwitchToState({pagename: 'Главная'});
+    }
+    function SwitchToListPage() {
+      SwitchToState({pagename: 'Таблица'});
+    }
+    function SwitchToGamePage() {
+      SwitchToState({pagename: 'Игра'});
+    }
+    SwitchToStateFromURLHash();
+  </script>
   <div id="menu">
-    <input type="button" value="Игра">
-    <input type="button" value="Таблица рекордов">
+    <input type="button" value="Игра" onclick='SwitchToGamePage()'>
+    <input type="button" value="Таблица рекордов" onclick='SwitchToListPage()'>
+    <input type="button" value="Правила" onclick='SwitchToMainPage()'>
     <input type="button" value="Закончить игру">
   </div>
 </body> 
 <script src="dragElements.js"></script>
 <script src="behaviorElements.js"></script>
 <script src="count.js"></script>
+<script src="timer.js"></script>
 </html>

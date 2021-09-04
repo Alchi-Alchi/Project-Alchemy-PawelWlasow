@@ -476,6 +476,9 @@ button:active{
   #nameA {
     width: inherit;
   }
+  #inscription {
+    color: rgba(200, 200, 200, 1);
+  }
 }
 
 @media (max-width: 800px) {

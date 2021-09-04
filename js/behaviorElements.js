@@ -60,8 +60,6 @@ if (dragObject.elem.parentNode == workArea) {
       }
       setTimeout (deleteEl, 1000);
       soundElem ();
-
-
       steam = document.createElement ('img');
       steam.setAttribute ('id', 'steam');
       steam.classList.add ('base');

@@ -187,7 +187,7 @@ img {
   font-size: 32px;
   padding: 0 100px;
   color: white;
-  text-shadow: 0 3px 3px rgba(255, 255, 255, 0.5);
+  text-shadow: 0 1px 3px rgba(255, 255, 255, 0.5);
 }
 
 .base {
@@ -471,19 +471,19 @@ button:active{
 
 @media (max-width: 1200px) {
   .modal {
-    width: 100%;
-    left: 0;
+    width: 50%;
   }
   #nameA {
     width: inherit;
   }
 }
 
-@media (max-width: 730px) {
+@media (max-width: 800px) {
   #menu {
     flex-direction: column;
   }
   #rules {
+    margin: 0;
     width: 100%;
     padding: 0 10px;
     font-size: 24px;
@@ -511,7 +511,12 @@ button:active{
   } 
 }
 
-@media (max-width: 510px) {
+@media (max-width: 600px) {
+  .modal {
+    width: 100%;
+    left: 0;
+  }
+
   #basket {
     width: 30%;
   }
@@ -523,5 +528,8 @@ button:active{
   }
   #letterNumber1, #letterNumber2, #letterNumber3, #letterNumber4, #letterNumber5, #letterNumber6, #letterNumber7 {
     font-size: 30px;
-  }  
+  }
+  #counter {
+    top: 80%;
+  }
 }

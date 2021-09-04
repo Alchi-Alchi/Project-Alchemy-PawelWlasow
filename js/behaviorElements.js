@@ -27,7 +27,9 @@ el2Water = elementsWater[1];
 let flameID = document.getElementById ('flameID');
 let elementsFlame = document.getElementsByName ('flame');
 let airID = document.getElementById ('airID');
+let elementsAir = document.getElementsByName ('air');
 let groundID = document.getElementById ('groundID');
+let elementsGround = document.getElementsByName ('ground');
 let steam = document.getElementById ('steamID');
 let lava = document.getElementById ('lavaID');
 let stone = document.getElementById ('stoneID');
@@ -42,71 +44,108 @@ let plant = document.getElementById ('plantID');
 let life = document.getElementById ('lifeID');
 let sun = document.getElementById ('sunID');
 let rain = document.getElementById ('rainID');
-// Элемент Пар
 if (dragObject.elem.parentNode == workArea) {
-  if (waterID === null || flameID === null) {
-    ;
-  } else {
-    waterIDX = waterID.getBoundingClientRect().x;
-    waterIDY = waterID.getBoundingClientRect().y;
-    flameIDX = flameID.getBoundingClientRect().x;
-    flameIDY = flameID.getBoundingClientRect().y;
-    if (Math.abs(waterIDX - flameIDX) <= 64 && Math.abs (waterIDY - flameIDY) <= 64) {
-      flameID.classList.add ('transformation');
-      waterID.classList.add ('transformation');
-      function deleteEl () {
-        flameID.parentNode.removeChild (flameID);
-        waterID.parentNode.removeChild (waterID);
-      }
-      setTimeout (deleteEl, 1000);
-      soundElem ();
-      steam = document.createElement ('img');
-      steam.setAttribute ('id', 'steam');
-      steam.classList.add ('base');
-      steam.setAttribute ('title', 'Пар');
-      steam.setAttribute ('alt', 'steam');
-      steam.setAttribute ('src', 'icons/' + 'steam' + '.png');
-      if ((!storage.children.steam)) {
-        storage.appendChild (steam);
-        steam.click ();
-      } else {
+  // Элемент Пар
+  function steamAdd () {
+    soundElem ();
+    steam = document.createElement ('img');
+    steam.setAttribute ('id', 'steam');
+    steam.classList.add ('base');
+    steam.setAttribute ('title', 'Пар');
+    steam.setAttribute ('alt', 'steam');
+    steam.setAttribute ('src', 'icons/' + 'steam' + '.png');
+    if ((!storage.children.steam)) {
+      storage.appendChild (steam);
+      steam.click ();
+    } else {
         storage.children.steam.click ();
       }
-      refresh ();
-    }
+    refresh ();
   }
-// Элемент Лава
-  if (groundID === null || flameID === null) {
-    ;
-  } else {
-      flameIDX = flameID.getBoundingClientRect().x;
-      flameIDY = flameID.getBoundingClientRect().y;
-      groundIDX = groundID.getBoundingClientRect().x;
-      groundIDY = groundID.getBoundingClientRect().y;
-      if (Math.abs(groundIDX - flameIDX) <= 64 && Math.abs (groundIDY - flameIDY) <= 64) {
+  function waterForSteam () {
+    elementsWater.forEach (function (item) {
+      if (item === null || flameID === null) {
+        ;
+      } else if (Math.abs(item.getBoundingClientRect().x - flameID.getBoundingClientRect().x) <= 64 && Math.abs(item.getBoundingClientRect().y - flameID.getBoundingClientRect().y <= 64)) {
         flameID.classList.add ('transformation');
-        groundID.classList.add ('transformation');
+        item.classList.add ('transformation');
         function deleteEl () {
           flameID.parentNode.removeChild (flameID);
-          groundID.parentNode.removeChild (groundID);
+          item.parentNode.removeChild (item);
         }
         setTimeout (deleteEl, 1000);
-        soundElem ();
-        lava = document.createElement ('img');
-        lava.setAttribute ('id', 'lava');
-        lava.classList.add ('base');
-        lava.setAttribute ('title', 'Лава');
-        lava.setAttribute ('alt', 'lava');
-        lava.setAttribute ('src', 'icons/' + 'lava' + '.png');
-        if ((!storage.children.lava)) {
-          storage.appendChild (lava);
-          lava.click ();
-        } else {
-          storage.children.lava.click ();
-        }
-        refresh ();
+        steamAdd();
       }
+    });
+  }
+  waterForSteam();
+  // if (waterID === null || flameID === null) {
+  //   ;
+  // } else {
+  //   waterIDX = waterID.getBoundingClientRect().x;
+  //   waterIDY = waterID.getBoundingClientRect().y;
+  //   flameIDX = flameID.getBoundingClientRect().x;
+  //   flameIDY = flameID.getBoundingClientRect().y;
+  //   if (Math.abs(waterIDX - flameIDX) <= 64 && Math.abs (waterIDY - flameIDY) <= 64) {
+  //     flameID.classList.add ('transformation');
+  //     waterID.classList.add ('transformation');
+  //     function deleteEl () {
+  //       flameID.parentNode.removeChild (flameID);
+  //       waterID.parentNode.removeChild (waterID);
+  //     }
+  //     setTimeout (deleteEl, 1000);
+  //     soundElem ();
+  //     steam = document.createElement ('img');
+  //     steam.setAttribute ('id', 'steam');
+  //     steam.classList.add ('base');
+  //     steam.setAttribute ('title', 'Пар');
+  //     steam.setAttribute ('alt', 'steam');
+  //     steam.setAttribute ('src', 'icons/' + 'steam' + '.png');
+  //     if ((!storage.children.steam)) {
+  //       storage.appendChild (steam);
+  //       steam.click ();
+  //     } else {
+  //       storage.children.steam.click ();
+  //     }
+  //     refresh ();
+  //   }
+  // }
+
+// Элемент Лава
+function lavaAdd () {
+  soundElem ();
+  lava = document.createElement ('img');
+  lava.setAttribute ('id', 'lava');
+  lava.classList.add ('base');
+  lava.setAttribute ('title', 'Лава');
+  lava.setAttribute ('alt', 'lava');
+  lava.setAttribute ('src', 'icons/' + 'lava' + '.png');
+  if ((!storage.children.lava)) {
+    storage.appendChild (lava);
+    lava.click ();
+  } else {
+      storage.children.lava.click ();
     }
+  refresh ();
+}
+function flameForLava () {
+  elementsFlame.forEach (function (item) {
+    if (item === null || groundID === null) {
+      ;
+    } else if (Math.abs(item.getBoundingClientRect().x - groundID.getBoundingClientRect().x) <= 64 && Math.abs(item.getBoundingClientRect().y - groundID.getBoundingClientRect().y <= 64)) {
+      groundID.classList.add ('transformation');
+      item.classList.add ('transformation');
+      function deleteEl () {
+        groundID.parentNode.removeChild (groundID);
+        item.parentNode.removeChild (item);
+      }
+      setTimeout (deleteEl, 1000);
+      lavaAdd ();
+    }
+  });
+}
+flameForLava();
+
 // Элемент Озеро
   if (el1Water === null || el2Water === null || el2Water === undefined) {
     ;

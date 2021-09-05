@@ -2,32 +2,6 @@ let bank = document.getElementById ('bankOfElements');
 let field = document.getElementById ('workField');
 let num = 1;
 let start = document.getElementById ('startBtn');
-
-function touchHandler(event) {
-  let touch = event.changedTouches[0];
-
-  let simulatedEvent = document.createEvent("MouseEvent");
-      simulatedEvent.initMouseEvent({
-      touchstart: "mousedown",
-      touchmove: "mousemove",
-      touchend: "mouseup"
-  }[event.type], true, true, window, 1,
-      touch.screenX, touch.screenY,
-      touch.clientX, touch.clientY, false,
-      false, false, false, 0, null);
-
-  touch.target.dispatchEvent(simulatedEvent);
-  event.preventDefault();
-}
-
-function init() {
-  document.addEventListener("touchstart", touchHandler, true);
-  document.addEventListener("touchmove", touchHandler, true);
-  document.addEventListener("touchend", touchHandler, true);
-  document.addEventListener("touchcancel", touchHandler, true);
-}
-
-
 let DragManager = new function ()  {
   let dragObject = {};
   let self = this;
@@ -61,8 +35,6 @@ let DragManager = new function ()  {
     dragObject.downY = e.pageY;
     return false;
   }
-
-  init ()
 
   function onMouseMove(e) {
     if (!dragObject.elem) return; 

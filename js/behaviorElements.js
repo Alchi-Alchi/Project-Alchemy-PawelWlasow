@@ -145,39 +145,71 @@ function flameForLava () {
   });
 }
 flameForLava();
-
 // Элемент Озеро
-  if (el1Water === null || el2Water === null || el2Water === undefined) {
-    ;
+function lakeAdd () {
+  soundElem ();
+  lake = document.createElement ('img');
+  lake.setAttribute ('id', 'lake');
+  lake.classList.add ('base');
+  lake.setAttribute ('title', 'Озеро');
+  lake.setAttribute ('alt', 'lake');
+  lake.setAttribute ('src', 'icons/' + 'lake' + '.png');
+  if ((!storage.children.lake)) {
+    storage.appendChild (lake);
+    lake.click ();
   } else {
-    el1X = el1Water.getBoundingClientRect().x;
-    el1Y = el1Water.getBoundingClientRect().y;
-    el2X = el2Water.getBoundingClientRect().x;
-    el2Y = el2Water.getBoundingClientRect().y;
-    if (Math.abs(el1X - el2X) <= 64 && Math.abs (el1Y - el2Y) <= 64) {
-      el1Water.classList.add ('transformation');
-      el2Water.classList.add ('transformation');
+      storage.children.lake.click ();
+    }
+  refresh ();
+}
+function waterForLake () {
+  elementsWater.forEach (function (item, i) {
+    if (item === null || waterID === null) {
+      ;
+    } else if (Math.abs(item.getBoundingClientRect().x - waterID.getBoundingClientRect().x) <= 32 && Math.abs(item.getBoundingClientRect().y - waterID.getBoundingClientRect().y <= 32) && item.dataset.id !== waterID.dataset.id) {
+      waterID.classList.add ('transformation');
+      item.classList.add ('transformation');
       function deleteEl () {
-        el1Water.parentNode.removeChild (el1Water);
-        el2Water.parentNode.removeChild (el2Water);
+        waterID.parentNode.removeChild (waterID);
+        item.parentNode.removeChild (item);
       }
       setTimeout (deleteEl, 1000);
-      soundElem ();
-      lake = document.createElement ('img');
-      lake.setAttribute ('id', 'lake');
-      lake.classList.add ('base');
-      lake.setAttribute ('title', 'Озеро');
-      lake.setAttribute ('alt', 'lake');
-      lake.setAttribute ('src', 'icons/' + 'lake' + '.png');
-      if ((!storage.children.lake)) {
-        storage.appendChild (lake);
-        lake.click ();
-      } else {
-        storage.children.lake.click ();
-      }
-      refresh ();
+      lakeAdd ();
     }
-  }
+  });
+}
+waterForLake ();
+  // if (el1Water === null || el2Water === null || el2Water === undefined) {
+  //   ;
+  // } else {
+  //   el1X = el1Water.getBoundingClientRect().x;
+  //   el1Y = el1Water.getBoundingClientRect().y;
+  //   el2X = el2Water.getBoundingClientRect().x;
+  //   el2Y = el2Water.getBoundingClientRect().y;
+  //   if (Math.abs(el1X - el2X) <= 64 && Math.abs (el1Y - el2Y) <= 64) {
+  //     el1Water.classList.add ('transformation');
+  //     el2Water.classList.add ('transformation');
+  //     function deleteEl () {
+  //       el1Water.parentNode.removeChild (el1Water);
+  //       el2Water.parentNode.removeChild (el2Water);
+  //     }
+  //     setTimeout (deleteEl, 1000);
+  //     soundElem ();
+  //     lake = document.createElement ('img');
+  //     lake.setAttribute ('id', 'lake');
+  //     lake.classList.add ('base');
+  //     lake.setAttribute ('title', 'Озеро');
+  //     lake.setAttribute ('alt', 'lake');
+  //     lake.setAttribute ('src', 'icons/' + 'lake' + '.png');
+  //     if ((!storage.children.lake)) {
+  //       storage.appendChild (lake);
+  //       lake.click ();
+  //     } else {
+  //       storage.children.lake.click ();
+  //     }
+  //     refresh ();
+  //   }
+  // }
 // Элемент Болото
   if (groundID === null || waterID === null) {
     ;

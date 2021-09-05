@@ -11,8 +11,6 @@
   <script src="jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
   <script src="jquery-ui-touch-punch/jquery.ui.touch-punch.js"></script>
   <script src="jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script> -->
-  <script src="js/mobile-drag-drop-master/Gruntfile.js"></script>
-  <script src="js/mobile-drag-drop-master/rollup.config.js"></script>
   <script src="js/mobile-drag-drop-master/release/index.js"></script>
   <script src="js/mobile-drag-drop-master/release/index.min.js"></script>
   <script defer src="js/logo.js"></script>
@@ -124,6 +122,11 @@
     }
     SwitchToStateFromURLHash();
   </script>
+  <script>
+    MobileDragDrop.polyfill({
+      dragImageTranslateOverride: MobileDragDrop.scrollBehaviourDragImageTranslateOverride
+    });
+</script>
   <div id="menu">
     <button id="gamePage" onclick='SwitchToGamePage()'>К игре</button>
     <button id="scoreBtn" data-tooltip="Внимание! Если покинуть страницу, весь прогресс будет потерян" onclick='SwitchToListPage()'>Таблица рекордов</button>

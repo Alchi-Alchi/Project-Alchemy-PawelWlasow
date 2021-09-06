@@ -4,7 +4,7 @@ let gamePage = document.getElementById ('gamePage');
 let endButton = document.getElementById ('endGame');
 let rulesBtn = document.getElementById ('rulesBtn');
 let scoreBtn = document.getElementById ('scoreBtn');
-let timer;
+let timer = document.getElementById ('timer');
 let modal = document.getElementById ('modalWindow');
 let okBtn = document.getElementById ('modalBtn');
 let cancelBtn = document.getElementById ('modalBtnCancel');
@@ -18,6 +18,15 @@ function makeKey() {
   }
   return text;
 };
+function removeNote () {
+  if (timer.textContent !== '00:00:00') {
+    rulesBtn.classList.remove ('btn');
+    endButton.classList.remove ('btn');
+    scoreBtn.classList.remove ('btn');
+  }
+};
+scoreBtn.addEventListener ('click', removeNote);
+rulesBtn.addEventListener ('click', removeNote);
 okBtn.addEventListener ('click', function () {
   if (nameA.value !== '') {
     modal.style.display = 'none';

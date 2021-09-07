@@ -24,6 +24,8 @@ function removeNote () {
     endButton.classList.remove ('btn');
     scoreBtn.classList.remove ('btn');
   }
+  clearInterval (timer);
+  timeWindow.textContent = '00:00:00';
 };
 scoreBtn.addEventListener ('click', removeNote);
 rulesBtn.addEventListener ('click', removeNote);
@@ -61,7 +63,7 @@ if (startButton === null) {
 endButton.addEventListener ('click', function () {
   if (timer === undefined) {
     ;
-  } else if (timer.textContent !== '00:00:00') {
+  } else if (timeWindow.textContent !== '00:00:00') {
     modal.style.display = 'block';
     clearInterval (timer);
     rulesBtn.classList.remove ('btn');

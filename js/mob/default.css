@@ -1,6 +1,5 @@
-
 .dnd-poly-drag-image {
-    opacity: .5 !important;
+    opacity: 0.5 !important;
 }
 
 .dnd-poly-drag-image.dnd-poly-snapback {

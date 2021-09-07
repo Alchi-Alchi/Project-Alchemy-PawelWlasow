@@ -473,11 +473,27 @@ button:active{
   .modal {
     width: 50%;
   }
+
   #nameA {
-    width: inherit;
+    width: 70%;
   }
+
   #inscription {
     color: rgba(200, 200, 200, 1);
+  }
+
+  #count, #slash, #inscription {
+    margin: 0 10px;
+    font-size: 48px;
+  }
+
+  #counter {
+    top: 90%;
+    width: inherit;
+  }
+
+  #start {
+    top: 60%;
   }
 }
 
@@ -485,30 +501,30 @@ button:active{
   #menu {
     flex-direction: column;
   }
+
   #rules {
     margin: 0;
     width: 100%;
     padding: 0 10px;
     font-size: 24px;
   }
+
   #logoIMG {
     display: none;
   }
-  #counter {
-    width: inherit;
-  }
-  #count, #slash, #inscription {
-    font-size: 48px;
-  }
+
   #basket {
     width: 25%;
   }
+
   #bankOfElements {
     width: 25%;
   }
+
   #workField {
     width: 50%;
   }
+
   #letterNumber1, #letterNumber2, #letterNumber3, #letterNumber4, #letterNumber5, #letterNumber6, #letterNumber7 {
     font-size: 56px;
   } 
@@ -516,22 +532,30 @@ button:active{
 
 @media (max-width: 600px) {
   .modal {
-    width: 100%;
+    width: 90%;
     left: 0;
   }
 
   #basket {
     width: 30%;
   }
+
   #bankOfElements {
     width: 30%;
   }
+  
   #workField {
     width: 40%;
   }
+
   #letterNumber1, #letterNumber2, #letterNumber3, #letterNumber4, #letterNumber5, #letterNumber6, #letterNumber7 {
-    font-size: 30px;
+    font-size: 48px;
   }
+
+  #count, #slash, #inscription {
+    font-size: 36px;
+  }
+
   #counter {
     top: 80%;
   }
